@@ -9,6 +9,7 @@ exports.handleRequest = function (req, res) {
 
 exports.getIndex = function (req, res) {
   httpHelpers.serveAssets(res, '/public/index.html');
+  archive.readListOfUrls();
 };
 
 exports.postIndex = function (req, res) {
