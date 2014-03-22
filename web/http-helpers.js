@@ -28,4 +28,12 @@ exports.noPageFound = noPageFound = function(response){
   response.end('404');
 };
 
+exports.redirect = function(response, url){
+  response.writeHead(302, {
+    'Location': url
+    //add other headers here...
+  });
+  response.end();
+};
+
 // As you progress, keep thinking about what helper functions you can put here!

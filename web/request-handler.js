@@ -9,11 +9,29 @@ exports.handleRequest = function (req, res) {
 
 exports.getIndex = function (req, res) {
   httpHelpers.serveAssets(res, '/public/index.html');
-  archive.readListOfUrls();
 };
 
 exports.postIndex = function (req, res) {
-  httpHelpers.serveAssets(res, '/public/loading.html');
+  var pageData = "";
+  req.on('data', function (chunk) {
+    pageData += chunk;
+  });
+
+  req.on('end', function(err){
+    if(err){
+      console.log(err);
+      return;
+    }
+    var url = pageData.split('=')[1];
+    archive.isUrlArchived(url, function(isInside){
+      if(!isInside){
+        archive.queueDownload(url);
+        httpHelpers.serveAssets(res, '/public/loading.html');
+      }else{
+        httpHelpers.redirect(res, '/sites/'+url);
+      }
+    });
+  });
 };
 
 exports.getArchive = function (req, res, url) {
