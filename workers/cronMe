@@ -1,0 +1,1 @@
+*/1 * * * * /usr/local/bin/node /Users/hackreactor/code/lukeramsey/2014-02-web-historian/workers/htmlFetcher.js >> /Users/hackreactor/code/lukeramsey/2014-02-web-historian/workers/log.txt
